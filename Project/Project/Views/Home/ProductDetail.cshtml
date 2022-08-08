@@ -1,0 +1,93 @@
+﻿@using Entities.Concrete
+@using Project.Models
+@model Product
+
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+
+   
+}
+
+@{ 
+
+    string ViewId = "ProductDetail";
+
+    var deger = (Model.UnitPrice * 100 / (100 - Model.Discounted));
+
+}
+
+
+@for (int i = 0; i < 2; i++)
+{
+    <br />
+}
+
+
+
+
+
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+
+<div class="container">
+    <div style="margin:auto" class="row">
+        <div class="col-xs-4 item-photo">
+
+            <img src="@Model.ImageDetailAdress" alt="" height="400" width="400" />
+        </div>
+        <div class="col-xs-5" style="border:0px solid gray">
+
+            <h3 style="margin-left: 140px; color: #004F98">@Model.ProductName</h3>
+            @if (Model.Discounted > 0 && Model.Stock > 0)
+            {
+                <h3 style="margin-left:140px;color:goldenrod">% @Model.Discounted İndirim   <del>₺ @Math.Round(decimal.Parse(deger.ToString()),2)</del></h3>
+            }
+
+            <h3 style="margin-left: 140px; font-size: 28px; color: #004F98">₺ @Model.UnitPrice</h3>
+
+            @if (Model.Stock > 0)
+            {
+                if (CurrentSession.user!=null && !CurrentSession.user.isAdmin)
+                {
+                    <a style="margin-left:140px;font-size:40px;color:crimson"   href="@Url.Action("ShoppingCart","Home",new { id = Model.Id, quantity = 1,ViewId=ViewId })">add to cart </a>
+                }
+
+            }
+
+            else
+            {
+                <p style="text-align:center;font-size:28px">STOKTA YOK</p>
+            }
+
+        </div>
+
+        <div class="col-xs-12">
+            <ul style="margin-top:20px;margin-left:128px" class="menu-items">
+                <li style="color:goldenrod;font-size:20px" class="active">Ürün Açıklaması</li>
+            </ul>
+            <div style="width:100%;border-top:1px solid silver">
+                <p style="padding:10px;font-size:20px">
+                    <small>
+                       @Model.Description
+                    </small>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $("#searchbox").hide();
+
+</script>

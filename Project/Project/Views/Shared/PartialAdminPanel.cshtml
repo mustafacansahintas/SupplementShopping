@@ -1,0 +1,90 @@
+﻿
+@using Entities.Concrete
+@using Project.Models
+@model List<Product>
+<style>
+
+    thead tr th {
+        color: #004F98;
+        font-family: 'Cascadia Code';
+    }
+
+</style>
+
+
+
+@{
+
+
+    List<Category> liste1 = CacheHelper.GetCategoriesFromCache();
+
+    List<Brand> liste2 = CacheHelper.GetBrandsFromCache();
+
+}
+
+
+
+
+<div class="row">
+
+    <div style="margin:auto;margin-top:80px" class="col-md-4">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Kategoriler</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Kategori Adı</th>
+
+                </tr>
+            </thead>
+            @for (int i = 0; i < liste1.Count; i++)
+            {
+                <tbody>
+                    <tr>
+
+                        <th style="color: #004F98;font-family:'Cascadia Code'" scope="row">@(i+1)</th>
+                        <td>@liste1[i].Id</td>
+                        <td>@liste1[i].CategoryName</td>
+
+
+                    </tr>
+                </tbody>
+            }
+        </table>
+
+    </div>
+
+
+    <div style="margin:auto;margin-top:80px" class="col-md-4">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Markalar</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Marka Adı</th>
+
+                </tr>
+            </thead>
+            @for (int i = 0; i < liste2.Count; i++)
+            {
+                <tbody>
+                    <tr>
+
+                        <th style="color: #004F98;font-family:'Cascadia Code'" scope="row">@(i+1)</th>
+                        <td>@liste2[i].Id</td>
+                        <td>@liste2[i].BrandName</td>
+
+
+                    </tr>
+                </tbody>
+            }
+        </table>
+
+    </div>
+
+
+</div>
+
+

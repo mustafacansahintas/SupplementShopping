@@ -1,0 +1,12 @@
+C:\Users\afrom\source\repos\Project\Entity\bin\Debug\Entity.dll.config
+C:\Users\afrom\source\repos\Project\Entity\bin\Debug\Entity.dll
+C:\Users\afrom\source\repos\Project\Entity\bin\Debug\Entity.pdb
+C:\Users\afrom\source\repos\Project\Entity\bin\Debug\EntityFramework.dll
+C:\Users\afrom\source\repos\Project\Entity\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\afrom\source\repos\Project\Entity\bin\Debug\EntityFramework.xml
+C:\Users\afrom\source\repos\Project\Entity\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\afrom\source\repos\Project\Entity\obj\Debug\Entities.csproj.AssemblyReference.cache
+C:\Users\afrom\source\repos\Project\Entity\obj\Debug\Entities.csproj.CoreCompileInputs.cache
+C:\Users\afrom\source\repos\Project\Entity\obj\Debug\Entities.csproj.CopyComplete
+C:\Users\afrom\source\repos\Project\Entity\obj\Debug\Entity.dll
+C:\Users\afrom\source\repos\Project\Entity\obj\Debug\Entity.pdb

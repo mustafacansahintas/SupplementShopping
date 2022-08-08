@@ -1,0 +1,100 @@
+﻿@using Project.Models
+@using Entities.Concrete
+@model List<Product>
+
+@{
+
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+
+<style>
+
+    .projectproductdetail {
+        font-family: 'Comic Sans MS';
+        color: red;
+    }
+</style>
+
+
+@for (int i = 0; i < 4; i++)
+{
+    <br />
+}
+
+
+<div class="container" style="overflow: hidden; width: 100%;">
+
+    <div style="float:left;width:10%" class="row">
+
+        @Html.Partial("PartialBrand")
+
+
+
+    </div>
+
+    <div style="float:right;width:90%" class="row">
+
+
+        @foreach (var item in Model)
+        {
+
+            var deger = (item.UnitPrice * 100 / (100 - item.Discounted));
+
+            <div class="product-item men">
+                <div class="product discount product_filter">
+                    <div class="product_image">
+                        <img src=@item.ImageAdress alt="" />
+                    </div>
+                    @if (CurrentSession.user != null && !CurrentSession.user.isAdmin)
+                    {
+                        <div class="favorite favorite_left"></div>
+                    }
+                    @if (item.Discounted > 0)
+                    {
+                        <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
+
+                            <span>%@item.Discounted</span>
+                        </div>
+                    }
+
+                    <div class="product_info">
+                        <h6 class="product_name"><a href="single.html">@item.ProductName</a></h6>
+                        <div style="color:goldenrod" class="product_price">
+                            ₺ @item.UnitPrice
+
+                            @if (item.Discounted > 0)
+                            {
+                                <span>₺ @deger</span>
+
+                            }
+
+                        </div>
+
+                        <a class="fa fa-eye" style="color: #004F98" href="/Home/ProductDetail/@item.Id" title="Ürün Detay"></a>
+                    </div>
+                </div>
+
+                @if (CurrentSession.user != null && !CurrentSession.user.isAdmin)
+                {
+                    <div class="red_button add_to_cart_button"><a href="/Home/Cart/@item.Id">add to cart</a></div>
+                }
+
+            </div>
+        }
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+</div>
+
+

@@ -1,0 +1,205 @@
+﻿@using Entities.Concrete
+@model List<OrderLine>
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<style>
+
+    th {
+        color: #004F98;
+    }
+</style>
+
+<hr />
+<p style="color: #004F98;font-size:20px;text-align:center">Siparişler</p>
+<hr />
+
+<br />
+
+@if (Model.Count>0)
+            {
+                List<int> liste = new List<int>();
+          
+
+                foreach (var item in Model)
+                {
+                    if (!liste.Contains(item.Order.Id))
+                    {
+                        liste.Add(item.Order.Id);
+
+                    }
+
+                }
+
+
+
+                for (int i = 0; i < liste.Count; i++)
+                {
+        <hr />
+        <div style="margin:auto" class="col-lg-10">
+
+            <table class="table table-striped">
+
+                <thead>
+
+                    <tr>
+
+
+                        <th scope="col">Sipariş Id</th>
+                        <th scope="col">Sipariş Tarihi</th>
+                        <th scope="col">Toplam</th>
+                    </tr>
+
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>@Model.Find(x=> x.Order.Id==liste[i]).OrderId</td>
+                        <td>@Model.Find(x => x.Order.Id == liste[i]).Order.OrderDate</td>
+                        <td>₺ @Model.Find(x => x.Order.Id == liste[i]).Order.Total</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <br />
+
+            <table class="table table-striped">
+
+                <thead>
+
+                    <tr>
+
+
+                        <th scope="col">Sipariş Kodu</th>
+
+                    </tr>
+
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>@Model.Find(x=> x.Order.Id==liste[i]).Order.OrderCode</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <br />
+
+
+            <table class="table table-striped">
+
+                <thead>
+
+                    <tr>
+
+
+
+                        <th scope="col">Adres</th>
+                    </tr>
+
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+
+                        <td>@Model.Find(x => x.Order.Id == liste[i]).Order.Adres</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <br />
+
+            @foreach (var item in Model.Where(x=> x.Order.Id==liste[i]))
+            {
+                <table class="table table-striped">
+
+                    <thead>
+
+                        <tr>
+
+                            <th scope="col">Ürün Id</th>
+                            <th scope="col">Ürün Adı</th>
+                            <th scope="col">Fiyat</th>
+                            <th scope="col">Adet</th>
+
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>@item.ProductId</td>
+                            <td>@item.Product.ProductName</td>
+                            <td>@item.UnitPrice</td>
+                            <td>@item.Quantity</td>
+
+
+                        </tr>
+
+                    </tbody>
+
+
+                </table>
+            }
+
+
+        </div>
+
+        <hr />
+
+        <a href="/Home/OrderDelete/@Model.Find(x=> x.Order.Id==liste[i]).Order.Id" style="color:goldenrod;margin-left:600px;font-size:18px">Siparişi Sil</a>
+
+        <hr />
+    }
+
+
+}
+
+else
+{
+    <hr />
+    <div style="margin:auto" class="col-md-8">
+
+        <h4 style="text-align:center;font-size:40px">Kayıtlı Siparişiniz Bulunmamaktadır</h4>
+
+    </div>
+    <hr />
+}
+
+
+@for (int i = 0; i < 20; i++)
+{
+    <br />
+}
+
+
+
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $("#searchbox").hide();
+
+</script>

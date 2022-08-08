@@ -1,0 +1,29 @@
+﻿@using Project.Models
+@using Entities.Concrete
+
+@{
+
+    List<Brand> liste = CacheHelper.GetBrandsFromCache();
+}
+
+
+<strong style="color: #004F98; font-family: 'Comic Sans MS'; font-size: 20px;margin-left:2px">Markalar</strong>
+<br />
+<br />
+
+@foreach (var item in liste)
+{
+<div>
+    <ul class="list-group" >
+
+        <li class="list-group-item" ><a style="color:goldenrod" href="/Home/GetBrands/@item.Id">@item.BrandName</a></li>
+
+    </ul>
+    
+
+    @*<input class="projectcheckbox"  value="" id=@item.Id>
+    <span>@item.BrandName</span>*@
+</div>
+}
+
+

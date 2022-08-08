@@ -1,0 +1,40 @@
+﻿@using Project.Models
+
+@{
+
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@for (int i = 0; i < 4; i++)
+{
+    <br />
+}
+
+<div style="margin:auto" class="col-md-8">
+
+    <h4 style="text-align:center;font-size:40px">Siparişiniz Tamamlanmıştır</h4>
+    <br />
+    <hr />
+    <br />
+    <a style="color: #004F98; font-size: 20px; margin-left: 360px" href="/Home/OrderView/@CurrentSession.user.Id">Siparişlerim</a>
+
+
+</div>
+
+
+
+
+
+    @for (int i = 0; i < 20; i++)
+    {
+        <br />
+    }
+
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+        $("#searchbox").hide();
+
+    </script>
+

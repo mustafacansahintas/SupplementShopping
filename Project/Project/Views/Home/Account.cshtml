@@ -1,0 +1,69 @@
+﻿@using Entities.Concrete
+@using Project.Models
+@model _User
+
+
+@{
+
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+
+@for (int i = 0; i < 2; i++)
+{
+    <br />
+}
+
+
+<div style="margin:auto" class="col-md-8">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="color: #004F98;font-size:20px" scope="col">Kullanıcı Bilgileri</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">İsim: @Model.Name</th>
+
+            </tr>
+            <tr>
+                <th scope="row">Soyisim: @Model.Surname</th>
+
+            </tr>
+            <tr>
+                <th scope="row">Kullanıcı Adı: @Model.UserName</th>
+
+            </tr>
+            <tr>
+                <th scope="row">Cinsiyet: @Model.Gender</th>
+
+            </tr>
+            <tr>
+                <th scope="row">Email: @Model.Email</th>
+
+            </tr>
+            <tr>
+                <th scope="row">Şifre: @Model.Password</th>
+
+            </tr>
+
+
+        </tbody>
+    </table>
+
+    <a style="color:goldenrod;font-family:'Global Sans Serif';font-size:20px" href="/Home/AccountDelete/@CurrentSession.user.Id">Hesabı Sil</a>
+    <a style="color:goldenrod;font-family:'Global Sans Serif';font-size:20px;margin:20px" href="/Home/UserUpdate/@CurrentSession.user.Id">Bilgileri Güncelle</a>
+</div>
+
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $("#searchbox").hide();
+
+</script>
+

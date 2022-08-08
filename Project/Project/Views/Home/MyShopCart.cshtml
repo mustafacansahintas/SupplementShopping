@@ -1,0 +1,116 @@
+﻿@model Entities.Concrete.Cart
+
+@{ 
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+@{ 
+    string ViewId = "Cart";
+}
+
+<section id="cart_items">
+    <div class="container">
+        @if (Model.CartLines.Count > 0)
+        {
+    <div class="table-responsive cart_info">
+        <table class="table table-condensed">
+            <thead>
+                <tr class="cart_menu">
+                    <td>Ürün Adı</td>
+                    <td>Fiyat</td>
+                    <td>Adet</td>
+                    <td>Tutar</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.CartLines)
+                {
+                    <tr>
+                        <td class="cart_description">
+                            <h4><a href="">@item.product.ProductName</a></h4>
+                        </td>
+                        <td class="cart_price">
+                            <p class="@item.product.Id" id="price" style="margin:0">@item.product.UnitPrice.ToString("c")</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="btn btn-default update" href="@Url.Action("Quantityİncrease","Home",new { id = item.product.Id })">-</a>
+                                @if (item.Quantity > 0)
+                                {
+                                    <input class="cart_quantity_input" type="text" id="@item.product.Id" value=@item.Quantity autocomplete="off" size="2" style="height:2.6rem">
+                                }
+                                else
+                                {
+                                    <input class="cart_quantity_input" type="text" id="@item.product.Id" value="1" autocomplete="off" size="2" style="height:2.6rem">
+                                }
+                                @if (item.Quantity < item.product.Stock)
+                                {
+                                    <a class="btn btn-default update" href="@Url.Action("ShoppingCart","Home",new { id = item.product.Id, quantity = 1,ViewId=ViewId })">+</a>
+
+
+                                }
+                                else
+                                {
+                                    <p style="color:crimson">Daha Fazla Ürün Ekleyemezsiniz</p>
+                                }
+     
+                                @{ 
+                                    TempData["adet"] = item.Quantity;
+                                }
+                               
+                                
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price" id="total+@item.product.Id" style="margin:0">@((item.product.UnitPrice * item.Quantity).ToString("c"))</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href="/Home/DeleteProductCart/@item.product.Id"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="total_area">
+                    <ul>
+                        <li style="margin:auto">Sepet Toplamı <span id="CartSubTotal">@Model.Total().ToString("c")</span></li>
+                    </ul>
+
+                      <a class="btn btn-default update" href="/Home/OrderCheckout">Sepeti Onayla</a>
+                
+                    </div>
+            </div>
+        </div>
+    </div>
+           
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                Alışveriş Sepetinizde Ürün Bulunmamaktadır.
+            </div>
+        }
+
+    </div>
+</section>
+ 
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#searchbox").hide();
+
+
+
+
+
+    });
+    
+</script>

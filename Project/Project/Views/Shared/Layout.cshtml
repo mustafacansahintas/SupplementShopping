@@ -1,0 +1,271 @@
+﻿@using Project.Models
+@using Entities.Concrete
+
+
+@{
+
+    List<Category> liste = CacheHelper.GetCategoriesFromCache();
+
+   
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Colo Shop</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Colo Shop Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/styles/bootstrap4/bootstrap.min.css">
+    <link href="~/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/styles/responsive.css">
+
+    <style>
+
+        .account {
+            background-color: #004F98;
+        }
+
+        .top_nav {
+            background-color: #004F98;
+        }
+
+        #yukari-cik {
+            height: 40px;
+            width: 80px;
+            bottom: 50px;
+            right: 20px;
+            color: #004F98;
+        }
+
+        #searchboxid {
+            background-color: #004F98;
+            color:white;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="super_container">
+
+        <!-- Header -->
+
+        <header class="header trans_300">
+
+            <!-- Top Navigation -->
+
+            <div class="top_nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <div class="top_nav_right">
+                                <ul class="top_nav_menu">
+                                    <li class="account">
+                                        @if (CurrentSession.user == null)
+                                        {
+                                            <a style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;color:honeydew;font-size:20px" href="/Home/Index">
+                                                Hesap Panel
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="account_selection">
+                                                <li><a href="/Home/Login"><i class="fa fa-sign-in" aria-hidden="true"></i>Giriş</a></li>
+                                                <li><a href="/Home/Register"><i class="fa fa-user-plus" aria-hidden="true"></i>Üye Ol</a></li>
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <a href="/Home/Account/@CurrentSession.user.Id">
+                                                Hesabım
+                                                <i class="fa fa-user-circle"></i>
+                                            </a>
+                                            <ul class="account_selection">
+                                                <li><a href="/Home/OrderView/@CurrentSession.user.Id"><i class="fa fa-sticky-note" aria-hidden="true"></i>Sipariş</a></li>
+                                                <li><a href="/Home/Logout"><i class="fa fa-sign-out" aria-hidden="true"></i>  Çıkış</a></li>
+                                            </ul>
+
+                                        }
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Navigation -->
+
+            <div class="main_nav_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <div class="logo_container">
+                                <a style="color: #004F98" href="/Home/Index">nutri<span style="color:goldenrod">shop</span></a>
+                            </div>
+                            <nav class="navbar">
+                                <ul class="navbar_menu">
+                                    <li><a class="mycategories" style="color: #004F98" onmouseout="this.style.color = '#004F98';" onmouseover="this.style.color = 'goldenrod';" href="/Home/Index">Tüm Ürünler</a></li>
+
+                                    @foreach (var item in liste)
+                                    {
+                                        <li><a class="mycategories" style="color: #004F98" onmouseout="this.style.color = '#004F98';" onmouseover="this.style.color = 'goldenrod';" id="@item.Id" href="/Home/Index/@item.Id">@item.CategoryName</a></li>
+                                    }
+
+                                </ul>
+
+                                @if (CurrentSession.user != null && !CurrentSession.user.isAdmin)
+                                {
+
+
+                            <div class="btn-group">
+
+                                @Html.Action("Summary", "Home") 
+
+                            </div>
+
+
+                                }
+
+                                        <div class="hamburger_container">
+                                            <i class="fa fa-bars" aria-hidden="true"></i>
+                                        </div>
+                                </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+
+        @for (int i = 0; i < 8; i++)
+        {
+            <br />
+        }
+
+        <div id="searchbox" style="margin:auto" class="col-md-8">
+
+
+            @using (Html.BeginForm("Search", "Home"))
+            {
+                <input style="margin-left:280px" class="col-md-4" placeholder="Arama"  type="text" name="SearchText" />
+
+                <input id="searchboxid" type="submit" name="submit" />
+            }
+
+
+        </div>
+
+
+        @RenderBody();
+
+
+
+        <div class="benefit">
+            <div class="container">
+                <div class="row benefit_row">
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i style="color: #004F98" class="fa fa-truck" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6 style="color: #004F98">Ücretsiz Kargo</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i style="color: #004F98" class="fa fa-money" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6 style="color: #004F98">Güvenli Alışveriş</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i style="color: #004F98" class="fa fa-undo" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6 style="color: #004F98">İade Garantisi</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 benefit_col">
+                        <div class="benefit_item d-flex flex-row align-items-center">
+                            <div class="benefit_icon"><i style="color: #004F98" class="fa fa-clock-o" aria-hidden="true"></i></div>
+                            <div class="benefit_content">
+                                <h6 style="color: #004F98">7/24 Hizmet</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <a href="#top" id="yukari-cik" title="Yukarı Çık" class="fa fa-arrow-up"></a>
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/styles/bootstrap4/popper.js"></script>
+    <script src="~/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="~/plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="~/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/plugins/easing/easing.js"></script>
+    <script src="~/js/custom.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            $(window).scroll(function () {
+
+                if ($(this).scrollTop() > $('body').height() - 800) {
+                    $('#yukari-cik').fadeIn();
+                    $('#yukari-cik').css('position', 'fixed');
+                }
+                else {
+                    $('#yukari-cik').fadeOut();
+
+                }
+                return false;
+
+
+            });
+            $('#yukari-cik').on('click', function () {
+
+                $('html, body').animate({ scrollTop: 0 }, 'fast');
+                return false;
+            });
+
+
+            $("#myproductcart").click(function () {
+
+                $("#mydropdownmenu").fadeToggle();
+
+            });
+
+
+        });
+
+          
+
+           
+
+        
+
+    </script>
+
+</body>
+
+</html>
+
